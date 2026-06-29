@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "taihe-dc-rl"
+version = "0.1.0"
+description = "Auto-dispatch RL for 太古DC-style FMCG distribution centers (8-SOP framework)"
+readme = "README.md"
+requires-python = ">=3.10.14,<3.11"
+dependencies = [
+    "pandas>=2.0,<3",
+    "numpy>=1.24,<2",
+    "openpyxl>=3.1,<4",
+    "torch>=2.1,<3",
+    "torch-geometric>=2.4,<3",
+    "gymnasium>=0.29,<1",
+    "pydantic>=2.0,<3",
+    "pydantic-settings>=2.10,<3",
+    "rich>=13.0,<14",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9",
+    "pytest-cov>=4.0,<6",
+    "ruff>=0.15,<0.16",
+    "black>=24.0,<26",
+    "mypy>=1.13,<2",
+]
+viz = [
+    "matplotlib>=3.8,<4",
+    "seaborn>=0.13,<1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B", "UP"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra --strict-markers"
+markers = ["slow: long-running integration tests"]
